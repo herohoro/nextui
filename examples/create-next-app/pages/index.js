@@ -2,15 +2,40 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import {
-  Container,
+  Container,Row, Col,
   Button,
   Input,
   Spacer,
-  Text,
-  Link
+  Link,
+  Card,
+  Grid,
+  useTheme, Text
+  
 } from '@nextui-org/react';
-
 export default function Home() {
+  
+  const { theme } = useTheme();
+  const colors = [
+    'primary',
+    'secondary',
+    'success',
+    'warning',
+    'error',
+    'gradient'
+    
+  ];
+  const MockItem = ({text}) => {
+    return (
+        <div height={100}>
+            <Text h6 size={15} color="white" style={{ margin: 0 }}>
+                {text}
+            </Text>
+        </div>
+    );
+}
+
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -21,22 +46,104 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Grid.Container gap={2} justify="center">
+        <Grid xs><MockItem text="1 of 3" /></Grid>
+        <Grid xs><MockItem text="2 of 3" /></Grid>
+        <Grid xs><MockItem text="3 of 3" /></Grid>
+      </Grid.Container>
+      <Grid.Container gap={2} justify="center">
+        <Grid xs><MockItem text="1 of 3" /></Grid>
+        <Grid xs={6}><MockItem text="2 of 3" /></Grid>
+        <Grid xs><MockItem text="3 of 3" /></Grid>
+      </Grid.Container>
+      
+        <Card css={{ px: '$4' }}>
+          <Text
+            h1
+            size={60}
+            css={{
+              textGradient: '45deg, $blue500 -20%, $pink500 50%'
+            }}
+            weight="bold"
+          >
+            Let's
+          </Text>
+          <Text
+            h1
+            size={60}
+            css={{
+              textGradient: '45deg, $purple500 -20%, $pink500 100%'
+            }}
+            weight="bold"
+          >
+            Make the Web
+          </Text>
+          <Text
+            h1
+            size={60}
+            css={{
+              textGradient: '45deg, $yellow500 -20%, $red500 100%'
+            }}
+            weight="bold"
+          >
+            Prettier
+          </Text>
+        </Card>
+        <div>
+              <p
+                style={{
+                  color: theme.colors.warning.value,
+                  fontSize: theme.fontSizes.tiny.value,
+                  padding: `${theme.space[2].value} ${theme.space[4].value}`
+                }}
+              >
+                Using color theme value
+              </p>
+              <Text
+                css={{
+                  color: '$gray800',
+                  fontSize: '$tiny',
+                  padding: '$2 $4'
+                }}
+              >
+                base text
+              </Text>
+        </div>
+        <Grid.Container gap={2}>
+        {colors.map((color) => (
+              <Grid xs={12} md={4} key={color}>
+                <Card color={color}>
+                  <Text css={{ fontWeight: '$bold', color: '$white' }} transform="capitalize">
+                    herohoro
+                  </Text>
+                  <Text css={{ fontWeight: '$bold', color: '$white' }} span>herohoro</Text>
+                </Card>
+              </Grid>
+            ))}
+        </Grid.Container>
 
-      <Container
-        as="main"
-        display="flex"
-        direction="column"
-        justify="center"
-        alignItems="center"
-        style={{ height: '100vh' }}
-      >
+        <Card css={{ mw: "400px" }}>
+          <p>A basic card.</p>
+        </Card>
+        <Card bordered shadow={false} hoverable css={{ mw: "400px" }}>
+          <p>A hoverable card.</p>
+        </Card>
+        <Card clickable bordered css={{ mw: "400px" }}>
+          <p>A clickable card.</p>
+        </Card>
+        <Card clickable bordered css={{ mw: "400px" }} bordered shadow={false} hoverable css={{ mw: "400px" }}>
+          <p>A clickable card + hoverable card.</p>
+        </Card>
+        <Container >
         <Spacer />
-        <Image src="/logo.svg" alt="Vercel Logo" width={200} height={200} />
+        <Image src="/../public/vercel.svg" alt="Vercel Logo" width={200} height={200} />
         <Spacer />
-        <Text h1 className={styles.title}>
+        <Row justify="center" align="center">
+      
+        <Text h3 color="secondary">
           Welcome to&nbsp;
           <Link
-            color
+            color="warning"
             href="https://nextjs.org"
             target="_blank"
             rel="noopener noreferrer"
@@ -45,7 +152,8 @@ export default function Home() {
           </Link>
           &nbsp;&&nbsp;
           <Link
-            color
+            icon
+            underline
             href="https://nextui.org"
             target="_blank"
             rel="noopener noreferrer"
@@ -53,7 +161,10 @@ export default function Home() {
             NextUI
           </Link>
         </Text>
+        </Row>
         <Spacer />
+        <Row justify="center" align="center">
+        
         <Input clearable labelPlaceholder="Type something" />
         <Spacer />
         <Button>
@@ -66,7 +177,11 @@ export default function Home() {
             Show on Github
           </a>
         </Button>
-      </Container>
+        </Row>
+        <Spacer y={3}/>
+        
+        </Container>
+        
     </div>
-  );
+  )
 }
